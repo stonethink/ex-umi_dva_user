@@ -4,6 +4,7 @@ export default () => {
   return (
     <div>
       <Users />
+      {/* Users Page */}
     </div>
   )
 }

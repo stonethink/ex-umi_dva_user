@@ -44,13 +44,28 @@ class UserEditModal extends Component {
       wrapperCol: { span: 14 },
     };
 
+    /* Added by stone 20191102 begin */
+    let readonly = true;
+    let titleName  = "";
+    if(this.props.operType === "create"){
+      titleName = "Create User";
+      readonly = false;
+    }else if(this.props.operType === "edit"){
+      titleName = "Edit User";
+      readonly = false;
+    }else{
+      titleName = "User Detail";
+      readonly = true;
+    }
+    /* Added by stone 20191102 end */
+
     return (
       <span>
         <span onClick={this.showModalHandler}>
           { children }
         </span>
         <Modal
-          title="Edit User"
+          title={titleName}
           visible={this.state.visible}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
@@ -63,7 +78,7 @@ class UserEditModal extends Component {
               {
                 getFieldDecorator('name', {
                   initialValue: name,
-                })(<Input />)
+                })(<Input readOnly={readonly}/>)
               }
             </FormItem>
             <FormItem
@@ -73,7 +88,7 @@ class UserEditModal extends Component {
               {
                 getFieldDecorator('email', {
                   initialValue: email,
-                })(<Input />)
+                })(<Input readOnly={readonly} />)
               }
             </FormItem>
             <FormItem
@@ -83,7 +98,8 @@ class UserEditModal extends Component {
               {
                 getFieldDecorator('website', {
                   initialValue: website,
-                })(<Input />)
+                })(<Input readOnly={readonly}/>)
+                //(<Input disabled={readonly}/>)
               }
             </FormItem>
           </Form>

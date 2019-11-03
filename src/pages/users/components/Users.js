@@ -39,7 +39,14 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: text => <a href="">{text}</a>,
+      /* modify by stone 20191103 begin */
+      // render: text => <a href="">{text}</a>,
+      render: (text, record) => (
+          <UserModal operType= "detail" record={record} onOk={editHandler.bind(null, record.id)}>
+            <a>{text}</a>
+          </UserModal>
+     ),
+     /* modify by stone 20191103 end */
     },
     {
       title: 'Email',
@@ -56,7 +63,7 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
       key: 'operation',
       render: (text, record) => (
         <span className={styles.operation}>
-          <UserModal record={record} onOk={editHandler.bind(null, record.id)}>
+          <UserModal operType= "edit" record={record} onOk={editHandler.bind(null, record.id)}>
             <a>Edit</a>
           </UserModal>
           <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, record.id)}>
@@ -71,7 +78,7 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
     <div className={styles.normal}>
       <div>
         <div className={styles.create}>
-          <UserModal record={{}} onOk={createHandler}>
+          <UserModal operType= "create" record={{}} onOk={createHandler}>
             <Button type="primary">Create User</Button>
           </UserModal>
         </div>
