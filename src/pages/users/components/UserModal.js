@@ -78,8 +78,14 @@ class UserEditModal extends Component {
               {
                 getFieldDecorator('name', {
                   initialValue: name,
-                })(<Input readOnly={readonly}/>)
-              }
+                  rules: [
+                    {
+                      required: true,
+                      message: "Name为必输项！",
+                    },
+                  ],
+                  })(<Input readOnly={readonly}/>)
+                }
             </FormItem>
             <FormItem
               {...formItemLayout}
